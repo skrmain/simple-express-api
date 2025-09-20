@@ -17,6 +17,7 @@ const Fruit = mongoose.model(
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
+const DB_NAME = process.env.DB_NAME || 'test';
 
 mongoose.connection.on("connecting", () =>
   console.log("[MongoDB] Connecting...")
@@ -26,7 +27,7 @@ mongoose.connection.on("error", (error) =>
   console.log("[MongoDB] Error in connection: ", error.message)
 );
 
-mongoose.connect(MONGO_URL);
+mongoose.connect(MONGO_URL, {dbName: DB_NAME});
 
 app.use((req, res, next) => {
   const d = new Date().toISOString();
