@@ -17,7 +17,7 @@ const Fruit = mongoose.model(
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
-const DB_NAME = process.env.DB_NAME || 'test';
+const DB_NAME = process.env.DB_NAME || "test";
 
 mongoose.connection.on("connecting", () =>
   console.log("[MongoDB] Connecting...")
@@ -27,7 +27,7 @@ mongoose.connection.on("error", (error) =>
   console.log("[MongoDB] Error in connection: ", error.message)
 );
 
-mongoose.connect(MONGO_URL, {dbName: DB_NAME});
+mongoose.connect(MONGO_URL, { dbName: DB_NAME });
 
 app.use((req, res, next) => {
   const d = new Date().toISOString();
@@ -55,6 +55,18 @@ app.get("/api/fruits", async (req, res) => {
   // [{ name: "Apple" }, { name: "Banana" }, { name: "Cranberry" }]
   res.send({ data: { fruits } });
 });
+
+// app.post("/api/fruits", async (req, res) => {
+//   const newFruits = [
+//     { name: "Apple" },
+//     { name: "Banana" },
+//     { name: "Cranberry" },
+//   ];
+//   for (const fruit of newFruits) {
+//     await Fruit.create({ name: fruit.name });
+//   }
+//   res.send({ message: "Fruits Created" });
+// });
 
 app.get("/error", (req, res) => {
   throw new Error("Error API Called");
