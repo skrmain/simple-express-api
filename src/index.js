@@ -3,14 +3,33 @@ import express from "express";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+  const d = new Date().toISOString();
+  console.log(`[DEBUG] ${d} | ${req.method} | ${req.url}`);
+  next();
+});
+
 app.get("/", (req, res) => {
-  console.log(
-    `[DEBUG] ${new Date().toISOString()} :: ${req.method} :: ${req.url}`
-  );
-
-  res.send({ message: "Hello World!" });
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <p>Express 🏡 + Railway 🚈🚈</p>
+    </body>
+    </html>
+    `);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.get("/api/data", (req, res) => {
+  res.send({ data: [{ name: "Apple" }, { name: "Banaan" }] });
 });
+
+app.get("/error", (req, res) => {
+  throw new Error("Error API Called");
+});
+
+app.listen(port, () => console.log(`Listening on port ${port}`));
