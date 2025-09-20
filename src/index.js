@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/data", (req, res) => {
-  res.send({ data: [{ name: "Apple" }, { name: "Banaan" }] });
+  res.send({ data: [{ name: "Apple" }, { name: "Banana" }, { name: "Cranberry" }] });
 });
 
 app.get("/error", (req, res) => {
